@@ -328,10 +328,10 @@ class GitsControlles {
                     files[x] = {
                         filename: files[x].filename,
                         status: files[x].status,
-                        additions: files[x].additions,
-                        deletions: files[x].deletions,
+                        additions: Number(files[x].additions),
+                        deletions: Number(files[x].deletions),
                         raw_url: files[x].raw_url,
-                        changes: files[x].changes,
+                        changes: Number(files[x].changes),
                         previous_filename: files[x].previous_filename ? files[x].previous_filename : ""
                     }
                 }
@@ -369,16 +369,16 @@ class GitsControlles {
 
                     if (_authors.includes(authorName)) {
                         let a = _authors.indexOf(authorName);
-                        actions.rank[a].total += _changeData.total;
-                        actions.rank[a].additions += _changeData.additions;
-                        actions.rank[a].deletions += _changeData.deletions;
+                        actions.rank[a].total += Number(_changeData.total);
+                        actions.rank[a].additions += Number(_changeData.additions);
+                        actions.rank[a].deletions += Number(_changeData.deletions);
                     } else if (!authorName.includes('[bot]')) {
                         actions.rank[rank_index] = {
                             name: authorName,
                             avatar: authorAvatar,
-                            total: _changeData.total,
-                            additions: _changeData.additions,
-                            deletions: _changeData.deletions,
+                            total: Number(_changeData.total),
+                            additions: Number(_changeData.additions),
+                            deletions: Number(_changeData.deletions),
                         };
                         rank_index++;
                     }
@@ -388,8 +388,8 @@ class GitsControlles {
                         name: authorName,
                         avatar: authorAvatar,
                         total: _changeData.total,
-                        additions: _changeData.additions,
-                        deletions: _changeData.deletions,
+                        additions: Number(_changeData.additions),
+                        deletions: Number(_changeData.deletions),
                     };
 
                     rank_index++;
@@ -450,9 +450,9 @@ class GitsControlles {
                         files: _savedCommitFiles,
                         message: _savedCommit.message,
                         status: {
-                            additions: _savedCommit.additions,
-                            deletions: _savedCommit.deletions,
-                            total: _savedCommit.total
+                            additions: Number(_savedCommit.additions),
+                            deletions: Number(_savedCommit.deletions),
+                            total:Number( _savedCommit.total)
                         },
                         tree: _savedCommit.tree,
                         lines: _savedCommit.lines,
@@ -495,11 +495,11 @@ class GitsControlles {
             if (have_author.length === 0) {
                 await author_thx('rank').insert(author_rank);
             } else {
-                author_rank.additions = have_author[0].additions;
-                author_rank.deletions = have_author[0].deletions;
-                author_rank.lines = have_author[0].lines;
-                author_rank.methods = have_author[0].methods;
-                author_rank.complexity_cyclomatic = have_author[0].complexity_cyclomatic;
+                author_rank.additions = Number(have_author[0].additions);
+                author_rank.deletions = Number(have_author[0].deletions);
+                author_rank.lines = Number(have_author[0].lines);
+                author_rank.methods = Number(have_author[0].methods);
+                author_rank.complexity_cyclomatic = Number(have_author[0].complexity_cyclomatic);
             }
 
             await author_thx.commit();
